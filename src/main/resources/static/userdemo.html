@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" name="viewport" content= "width=device-width, initial-scale=1.0">
+    <title>Title</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        [v-cloak]{
+            display: none;
+        }
+        header{
+            text-align: center;
+            font-size: 40px;
+        }
+        body {
+            background: url("https://ftp.bmp.ovh/imgs/2021/06/2ddb2a4c8730f88e.jpeg") no-repeat;
+            background-size: cover;
+        }
+        #search{
+            display: flex;
+            height: 30px;
+            justify-content: center;
+            margin-top: 100px;
+        }
+        #searchbtn{
+            width: 100px;
+        }
+        table {
+            display: flex;
+            justify-content: center;
+            margin: 20px auto;
+            min-width: 500px;
+            text-align: center;
+
+        }
+        th{
+            border: solid 1px;
+            text-align: center;
+            border-collapse: collapse;
+        }
+        td{
+            border: solid 1px;
+            text-align: center;
+            border-collapse: collapse;
+        }
+        header{
+            margin-top: 200px;
+        }
+    </style>
+</head>
+
+
+<body >
+<header>学生信息自助查询</header>
+
+
+<div id="app">
+    <div id="search" @click="getInFor">
+        <input type="text" v-model="id" placeholder="请输入学号">
+        <input type="button" id="searchbtn" value="查询" @click="getInFor">
+    </div>
+
+    <table>
+        <tr>
+            <th>学号</th>
+            <th>姓名</th>
+            <th>年龄</th>
+            <th>性别</th>
+            <th>地区</th>
+            <th>专业</th>
+            <th>班级</th>
+            <th>民族</th>
+        </tr>
+<!--        <tr v-for="item in userList" v-cloak>-->
+        <tr v-cloak>
+            <td>{{sid}}</td>
+            <td>{{sname}}</td>
+            <td>{{sage}}</td>
+            <td>{{ssex}}</td>
+            <td>{{snativeplace}}</td>
+            <td>{{smajor}}</td>
+            <td>{{sclass}}</td>
+            <td>{{snative}}</td>
+        </tr>
+    </table>
+</div>
+
+</body>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    let app = new Vue({
+        el: "#app",
+        data: {
+            id: "",
+            sid:"",
+            sname:"",
+            sage:"",
+            ssex:"",
+            snativeplace:"",
+            smajor:"",
+            sclass:"",
+            snative:"",
+            userList:[]
+        },
+        methods: {
+            getInFor: function () {
+                let that = this;
+                axios.get("http://127.0.0.1:8888/student/idtest?id="+that.id).then(function (response) {
+                    that.sid = response.data.sid;
+                    that.sname = response.data.sname;
+                    that.sage= response.data.sage;
+                    that.ssex= response.data.ssex;
+                    that.snativeplace= response.data.snativeplace;
+                    that.smajor= response.data.smajor;
+                    that.sclass= response.data.sclass;
+                    that.snative= response.data.snative;
+                }).catch(function (err) {
+                })
+            }
+        }
+    });
+
+</script>
+</html>

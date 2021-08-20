@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.StudentMapper">
+
+    <!-- 查询所有 -->
+    <select id="findStudentAll"  resultType="com.example.demo.entity.Student">
+        SELECT * FROM javaee.student
+    </select>
+
+    <!-- 根据主键查询信息 -->
+    <select id="findStudentByIds" parameterType="int" resultType="com.example.demo.entity.Student">
+        SELECT *
+        FROM javaee.student s WHERE s.sid = #{sid}
+    </select>
+
+    <!--&lt;!&ndash; 根据主键删除 &ndash;&gt;-->
+    <delete id="deleteStudentById" parameterType="int">
+        DELETE FROM javaee.student s WHERE s.sid = #{sid}
+    </delete>
+    <!-- 修改信息 -->
+    <update id="updateStudent">
+        UPDATE student
+        <set>
+            <if test="sname != null">
+                sname = #{sname},
+            </if>
+            <if test="sage != null">
+                sage = #{sage},
+            </if>
+            <if test="ssex != null">
+                ssex = #{ssex},
+            </if>
+            <if test="snativeplace != null">
+                snativeplace = #{snativeplace},
+            </if>
+            <if test="smajor != null">
+                smajor = #{smajor},
+            </if>
+            <if test="sclass != null">
+                sclass = #{sclass},
+            </if>
+            <if test="snative != null">
+                snative = #{snative}
+            </if>
+        </set>
+        WHERE sid = #{sid}
+    </update>
+    <!-- 根据条件参数查询列表 -->
+    <!--<select id="findStudentByCondition" parameterType="map" resultType="java.util.Map">
+        SELECT *
+        FROM student s WHERE 1 = 1
+        <if test="snane != null and snane != ''">
+            AND s.snane LIKE CONCAT('%', #{snane}, '%')
+        </if>
+        <if test="sage != null and sage != ''">
+            AND s.sage LIKE CONCAT('%', #{sage}, '%')
+        </if>
+        <if test="ssex != null and ssex != ''">
+            AND s.ssex LIKE CONCAT('%', #{ssex}, '%')
+        </if>
+        <if test="snativeplace != null and snativeplace != ''">
+            AND s.snativeplace LIKE CONCAT('%', #{snativeplace}, '%')
+        </if>
+        <if test="smajor != null and smajor != ''">
+            AND s.smajor LIKE CONCAT('%', #{smajor}, '%')
+        </if>
+        <if test="sclass != null and sclass != ''">
+            AND s.sclass LIKE CONCAT('%', #{sclass}, '%')
+        </if>
+        <if test="snative != null and snative != ''">
+            AND s.snative LIKE CONCAT('%', #{snative}, '%')
+        </if>
+    </select>-->
+
+
+
+
+    <!-- &lt;!&ndash; 批量修改信息 &ndash;&gt;
+    <update id="updateStudents" parameterType="list">
+        <foreach collection="list" index="index" item="item" separator=";">
+            UPDATE student
+            <set>
+                <if test="item.snane != null">
+                    snane = #{item.snane},
+                </if>
+                <if test="item.sage != null">
+                    sage = #{item.sage},
+                </if>
+                <if test="item.ssex != null">
+                    ssex = #{item.ssex},
+                </if>
+                <if test="item.snativeplace != null">
+                    snativeplace = #{item.snativeplace},
+                </if>
+                <if test="item.smajor != null">
+                    smajor = #{item.smajor},
+                </if>
+                <if test="item.sclass != null">
+                    sclass = #{item.sclass},
+                </if>
+                <if test="item.snative != null">
+                    snative = #{item.snative}
+                </if>
+            </set>
+            WHERE sid = #{item.sid}
+        </foreach>
+    </update>
+
+
+
+    &lt;!&ndash; 根据主键批量删除 &ndash;&gt;
+    <delete id="deleteStudentByIds" parameterType="list">
+        DELETE FROM student WHERE sid IN
+        <foreach collection="list" index="index" item="sid" open="(" separator="," close=")">
+            #{sid}
+        </foreach>
+    </delete>-->
+</mapper>

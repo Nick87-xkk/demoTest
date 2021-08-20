@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        [v-cloak]{
+            display: none;
+        }
+        body {
+            background: url("https://ftp.bmp.ovh/imgs/2021/06/2ddb2a4c8730f88e.jpeg") no-repeat;
+            background-size: cover;
+        }
+
+        table {
+            margin: 0 auto;
+            border: solid 1px;
+            text-align: center;
+        }
+
+        th{
+            border: solid 1px;
+            text-align: center;
+            border-collapse: collapse;
+        }
+        td{
+            border: solid 1px;
+            text-align: center;
+            border-collapse: collapse;
+        }
+
+        #insertInFor {
+            display: flex;
+            height: 30px;
+            margin-top: 200px;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+
+        #insertInFor > input {
+            width: 50px;
+            outline: none;
+            margin-right: 1px;
+            text-align: center;
+            border: solid 1px;
+            background-color: transparent;
+        }
+        a{
+            text-decoration: none;
+        }
+        a:hover{
+            color: gold;
+        }
+        textarea{
+            font-size: 20px;
+            outline: none;
+            resize: none;
+            max-width: 100px;
+            max-height: 25px;
+            text-align: center;
+            background-color: transparent;
+        }
+    </style>
+</head>
+
+
+<body >
+
+<div id="insertInFor" v-cloak>
+    <input type="text" placeholder="姓名" v-model="insname">
+    <input type="text" placeholder="年龄" v-model="insage">
+    <input type="text" placeholder="性别" v-model="inssex">
+    <input type="text" placeholder="地区" v-model="insnativeplace">
+    <input type="text" placeholder="专业" v-model="insmajor">
+    <input type="text" placeholder="班级" v-model="insclass">
+    <input type="text" placeholder="民族" v-model="insnative">
+    <input type="button" value="插入" @click="setInfor">
+</div>
+<div id="app" v-cloak>
+    <table>
+        <tr>
+            <th>序号</th>
+            <th>学号</th>
+            <th>姓名</th>
+            <th>年龄</th>
+            <th>性别</th>
+            <th>地区</th>
+            <th>专业</th>
+            <th>班级</th>
+            <th>民族</th>
+            <th>删除记录</th>
+            <th><a  href="javascript:;"  @click="test">点击查看</a></th>
+        </tr>
+        <tr v-for="(item,index) in userList" v-cloak id="stuinfor">
+            <td>{{index+1}}</td>
+            <td><div>{{item.sid}}</div></td>
+            <td><textarea v-model="item.sname"  rows="1"></textarea></td>
+            <td><textarea v-model="item.sage" rows="1"></textarea></td>
+            <td><textarea v-model="item.ssex" rows="1"></textarea></td>
+            <td><textarea v-model="item.snativeplace" rows="1"></textarea></td>
+            <td><textarea v-model="item.smajor" rows="1"></textarea></td>
+            <td><textarea v-model="item.sclass" rows="1"></textarea></td>
+            <td><textarea v-model="item.snative" rows="1"></textarea></td>
+            <td><a  href="javascript:;" @click="deleteStudent(index)">删除</a></td>
+            <td><a  href="javascript:;" @click="updateStudent(index)">更新</a></td>
+        </tr>
+    </table>
+</div>
+</body>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://cdn.bootcss.com/qs/6.7.0/qs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    let app = new Vue({
+        el: "#app",
+        data: {
+            userList: [],
+            sid:"",
+            sname:"",
+            sage:"",
+            ssex:"",
+            snativeplace:"",
+            smajor:"",
+            sclass:"",
+            snative:""
+        },
+        methods: {
+            //全部查询
+            test: function () {
+                let that = this;
+                axios.get("http://127.0.0.1:8888/student/test").then(function (response) {
+                    that.userList = response.data.records;
+                }).catch(function (err) {
+                })
+            },
+            //删除操作
+            deleteStudent:function (index) {
+                let qs = Qs;
+                let that = this;
+                let stuId = qs.stringify({
+                    "sid":that.userList[index].sid
+                });
+                let sName =  that.userList[index].sname;
+                let message = confirm("确定删除此记录？");
+                if (message === true){
+                    axios.post("http://127.0.0.1:8888/student/delete",stuId).then(function () {
+                        alert("已从数据库中删除："+"学号:"+stuId.sid+" 姓名:"+sName);
+                    });
+                }
+                that.userList.splice(index,1);
+            },
+            //更新操作
+            updateStudent:function (index) {
+                let qs = Qs;
+                let that = this;
+                let stuInFor = qs.stringify({
+                    "sid":that.userList[index].sid,
+                    'sname':that.userList[index].sname,
+                    'sage':that.userList[index].sage,
+                    'ssex':that.userList[index].ssex,
+                    'snativeplace':that.userList[index].snativeplace,
+                    'smajor':that.userList[index].smajor,
+                    'sclass':that.userList[index].sclass,
+                    'snative':that.userList[index].snative
+                });
+                console.log(stuInFor.sname);
+                axios.post("http://127.0.0.1:8888/student/update",stuInFor).then(function () {
+                    that.test();
+                    alert("更新成功！");
+                }).catch(function (err) {
+
+                })
+            }
+        }
+    });
+    //添加操作
+    let insertInFor = new Vue({
+        el: "#insertInFor",
+        data:{
+
+                insname: "",
+                insage: "",
+                inssex: "",
+                insnativeplace: "",
+                insmajor: "",
+                insclass: "",
+                insnative: ""
+        },
+        methods: {
+            //post向数据库添加记录
+            setInfor: function () {
+                let qs = Qs;
+                let that = this;
+                let postdate = qs.stringify({
+                    'id':0,
+                    'name':that.insname,
+                    'age':that.insage,
+                    'sex':that.inssex,
+                    'snativeplace':that.insnativeplace,
+                    'smajor':that.insmajor,
+                    'sclass':that.insclass,
+                    'snative':that.insnative
+                });
+                console.log(postdate);
+                axios.post("http://127.0.0.1:8888/student/addStudent?",postdate).then(function () {
+                    alert("success!");
+                    app.test();
+                }).catch(function () {
+                    alert("false!")
+                });
+            }
+        }
+    });
+</script>
+</html>

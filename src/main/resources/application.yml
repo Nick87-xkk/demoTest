@@ -1,0 +1,13 @@
+server:
+  port: 8888
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/javaee?useUnicode=true&useSSL=false&characterEncoding=utf8
+    url: jdbc:mysql://121.199.31.100:3306/javaee?useUnicode=true&useSSL=false&characterEncoding=utf8
+    username: javaee
+    password: 123456
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml
+
+
