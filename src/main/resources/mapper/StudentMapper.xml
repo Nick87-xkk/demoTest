@@ -72,9 +72,6 @@
         </if>
     </select>-->
 
-
-
-
     <!-- &lt;!&ndash; 批量修改信息 &ndash;&gt;
     <update id="updateStudents" parameterType="list">
         <foreach collection="list" index="index" item="item" separator=";">

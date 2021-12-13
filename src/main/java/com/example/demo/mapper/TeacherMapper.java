@@ -1,6 +1,6 @@
 package com.example.demo.mapper;
 
-import com.example.demo.entity.Usr;
+import com.example.demo.entity.Teacher;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -9,9 +9,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author nick
- * @since 2021-06-24
+ * @since 2021-12-13
  */
-public interface UsrMapper extends BaseMapper<Usr> {
-    Usr findUsrByIds(int usrid);
+public interface TeacherMapper extends BaseMapper<Teacher> {
 
 }

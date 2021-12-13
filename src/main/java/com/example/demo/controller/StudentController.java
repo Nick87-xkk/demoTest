@@ -36,6 +36,7 @@ public class StudentController {
     public Student findId(int id){
         return iStudentService.findStudentByIds(id);
     }
+//    添加学生信息
     @CrossOrigin
     @PostMapping("/addStudent")
     public Object insertStudent(int id,String name,String age,String sex,String snativeplace,String smajor,String sclass,String snative){
@@ -51,11 +52,13 @@ public class StudentController {
         iStudentService.save(student);
         return student;
     }
+//    删除
     @CrossOrigin
     @PostMapping("/delete")
     public boolean deleteStudent(int sid){
         return iStudentService.deleteStudentById(sid);
     }
+//    更新
     @CrossOrigin
     @PostMapping("/update")
     public boolean updateStudent(int sid,String sname,String sage,String ssex,String snativeplace,String smajor,String sclass,String snative){

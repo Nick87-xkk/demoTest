@@ -7,4 +7,5 @@
         FROM javaee.usr s WHERE s.userid = #{sid}
     </select>
 
+
 </mapper>
