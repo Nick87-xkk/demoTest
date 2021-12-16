@@ -19,7 +19,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> implements IStudentService {
 
-
     @Override
     public IPage<Student> findStudentAll(Page page) {
         return baseMapper.findStudentAll(page);
@@ -40,10 +39,5 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
         return baseMapper.updateStudent(sid, sname, sage, ssex, snativeplace, smajor, sclass, snative);
     }
 
-
-//    @Override
-//    public boolean updateStudent(int id, String name, int age, String sex, String snativeplace, String smajor, String sclass, String snative) {
-//        return baseMapper.updateStudent(id, name, age, sex, snativeplace, smajor, sclass, snative);
-//    }
 
 }

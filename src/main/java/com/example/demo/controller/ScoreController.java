@@ -1,9 +1,13 @@
 package com.example.demo.controller;
 
 
+import com.example.demo.service.IScoreService;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
 
 /**
  * <p>
@@ -16,5 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/score")
 public class ScoreController {
+    @Resource
+    IScoreService iScoreService;
 
 }

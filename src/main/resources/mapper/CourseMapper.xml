@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo.mapper.CourseMapper">
+    <!-- 查询所有 -->
+    <select id="findCourseAll"  resultType="com.example.demo.entity.Course">
+        SELECT * FROM javaee.course
+    </select>
+
+    <!--&lt;!&ndash; 根据主键删除 &ndash;&gt;-->
+    <delete id="deleteCourseById" parameterType="int">
+        DELETE FROM javaee.course c WHERE c.cid = #{cid}
+    </delete>
+
+    <!--添加-->
+    <insert id="addCourse" parameterType="com.example.demo.entity.Course">
+        insert into javaee.course(cid,cname,tid) values (#{cid},#{cname},#{tid})
+    </insert>
 
 </mapper>

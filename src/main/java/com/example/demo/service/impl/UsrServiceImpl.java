@@ -22,8 +22,9 @@ public class UsrServiceImpl extends ServiceImpl<UsrMapper, Usr> implements IUsrS
         return baseMapper.findUsrByIds(usrid);
     }
 
-   /* @Override
-    public Usr setUser(String usrName, String passwd,int usrid) {
-        return null;
-    }*/
+    @Override
+    public boolean addUsr(int uid, String uname, String upwd) {
+        return baseMapper.addUsr(uid,uname,upwd);
+    }
+
 }

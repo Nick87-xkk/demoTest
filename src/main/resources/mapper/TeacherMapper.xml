@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo.mapper.TeacherMapper">
+    <!-- 查询所有 -->
+    <select id="findTeacherAll"  resultType="com.example.demo.entity.Teacher">
+        SELECT * FROM javaee.teacher
+    </select>
+
+    <!--&lt;!&ndash; 根据主键删除 &ndash;&gt;-->
+    <delete id="deleteTeacherById" parameterType="int">
+        DELETE FROM javaee.teacher t WHERE t.tid = #{tid}
+    </delete>
+
+    <!--添加-->
+    <insert id="addTeacher" parameterType="com.example.demo.entity.Teacher">
+        insert into javaee.teacher(tid,tname) values (#{tid},#{tname})
+    </insert>
+
 
 </mapper>

@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
  * <p>
- *  Mapper 接口
+ * Mapper 接口
  * </p>
  *
  * @author nick
@@ -13,5 +13,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface UsrMapper extends BaseMapper<Usr> {
     Usr findUsrByIds(int usrid);
-
+    boolean addUsr(int uid,String uname,String upwd);
 }

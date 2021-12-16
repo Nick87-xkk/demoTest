@@ -7,5 +7,8 @@
         FROM javaee.usr s WHERE s.userid = #{sid}
     </select>
 
+    <insert id="addUsr" parameterType="com.example.demo.entity.Usr">
+        insert into javaee.usr(userid,username,passwd) values (#{uid},#{uname},#{upwd})
+    </insert>
 
 </mapper>

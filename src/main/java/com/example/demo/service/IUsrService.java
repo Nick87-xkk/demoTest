@@ -13,4 +13,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IUsrService extends IService<Usr> {
     Usr findUsrByIds(int usrid);
+    boolean addUsr(int uid,String uname,String upwd);
 }
